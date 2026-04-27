@@ -21,13 +21,8 @@ const BackendLoadingScreen = () => {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center px-6">
       <div className="w-full max-w-md bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl p-8 text-center">
-        <div className="mx-auto h-16 w-16 rounded-2xl bg-white dark:bg-slate-700 p-2 border border-slate-200 dark:border-slate-600 mb-5">
-          <img src={adminHubLogo} alt="AdminHub logo" className="h-full w-full object-contain" />
-        </div>
-
-        <div className="mx-auto h-16 w-16 relative mb-5">
-          <div className="absolute inset-0 rounded-full border-4 border-indigo-200 dark:border-indigo-900/50"></div>
-          <div className="absolute inset-0 rounded-full border-4 border-transparent border-t-indigo-600 border-r-indigo-500 animate-spin"></div>
+        <div className="flex items-center justify-center h-full">
+            <img src={adminHubLogo} alt="AdminHub logo" className="h-20 w-20 object-contain" />
         </div>
 
         <h1 className="text-xl font-bold text-slate-800 dark:text-slate-100">Starting AdminHub</h1>

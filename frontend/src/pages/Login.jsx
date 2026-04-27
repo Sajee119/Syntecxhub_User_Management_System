@@ -64,8 +64,9 @@ const Login = () => {
         <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
           <div className="p-6 md:p-8">
             <div className="text-center mb-8">
-              <img src={adminHubLogo} alt="AdminHub logo" className="h-20 w-20 margin-center object-contain" />
-              
+              <div className="flex items-center justify-center h-full">
+                <img src={adminHubLogo} alt="AdminHub logo" className="h-20 w-20 object-contain" />
+              </div>
               <h1 className="text-2xl font-bold text-slate-800 dark:text-white">AdminHub Portal</h1>
               <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">Sign in to manage your dashboard</p>
             </div>
