@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL =
+export const API_BASE_URL =
   globalThis.process?.env?.REACT_APP_API_BASE_URL ||
   import.meta.env.VITE_API_BASE_URL ||
   'https://syntecxhub-user-management-system.onrender.com/api';

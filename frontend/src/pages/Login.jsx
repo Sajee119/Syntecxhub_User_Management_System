@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import ThemeToggle from '../components/ThemeToggle';
+import adminHubLogo from '../assets/AdminHub-logo.png';
 
 
 const Login = () => {
@@ -63,9 +64,8 @@ const Login = () => {
         <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
           <div className="p-6 md:p-8">
             <div className="text-center mb-8">
-              <div className="inline-flex items-center justify-center h-16 w-16 rounded-2xl bg-gradient-to-br from-indigo-600 to-indigo-500 shadow-lg mb-4">
-                <i className="fas fa-users-gear text-white text-3xl"></i>
-              </div>
+              <img src={adminHubLogo} alt="AdminHub logo" className="h-20 w-20 margin-center object-contain" />
+              
               <h1 className="text-2xl font-bold text-slate-800 dark:text-white">AdminHub Portal</h1>
               <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">Sign in to manage your dashboard</p>
             </div>

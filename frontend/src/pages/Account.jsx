@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
 import ThemeToggle from '../components/ThemeToggle';
 import ConfirmationModal from '../components/ConfirmationModal';
+import adminHubLogo from '../assets/AdminHub-logo.png';
 
 const Account = () => {
   const navigate = useNavigate();
@@ -179,7 +180,7 @@ const Account = () => {
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
           <div>
             <h1 className="text-3xl md:text-4xl font-bold tracking-tight flex items-center gap-3">
-              <i className="fas fa-users-gear text-indigo-500 text-3xl"></i>
+              <img src={adminHubLogo} alt="AdminHub logo" className="h-10 w-10 object-contain" />
               <span>User Management</span>
             </h1>
             <p className="text-slate-500 dark:text-slate-400 mt-1 text-sm">Manage users, roles, access & advanced analytics</p>
