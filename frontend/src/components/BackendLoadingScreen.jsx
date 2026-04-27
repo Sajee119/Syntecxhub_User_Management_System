@@ -20,7 +20,7 @@ const BackendLoadingScreen = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center px-6">
-      <div className="w-full max-w-md bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl p-8 text-center">
+      <div className="w-full max-w-md  text-center">
         <div className="flex items-center justify-center h-full">
             <img src={adminHubLogo} alt="AdminHub logo" className="h-20 w-20 object-contain" />
         </div>
