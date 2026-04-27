@@ -84,7 +84,7 @@ const Login = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required 
-                  placeholder="admin@adminhub.com" 
+                  placeholder="Enter admin email" 
                   className="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-slate-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800 transition input-focus-effect"
                   autoComplete="email"
                 />
@@ -100,7 +100,7 @@ const Login = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required 
-                    placeholder="Enter your password" 
+                    placeholder="Enter admin password" 
                     className="w-full px-4 py-3 border border-slate-200 text-white-400 dark:border-slate-600 rounded-xl bg-slate-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800 transition input-focus-effect pr-12"
                     autoComplete="current-password"
                   />
@@ -139,7 +139,7 @@ const Login = () => {
               </button>
             </form>
             <p className="text-center text-xs text-blue-600 dark:text-white-400 mt-6">
-              <i className="fas fa-envelope mr-1"></i> admin@adminhub.com • <i className="fas fa-lock mr-1"></i> admin123
+              <i className="fas fa-envelope mr-1"></i> • <i className="fas fa-lock mr-1"></i> DM me for login credentials +94783566823
             </p>
             <p className="text-center text-xs text-green-600 dark:text-green-400 mt-6">
               <i className="fas fa-shield-alt mr-1"></i> Secure admin access • Protected by encryption
