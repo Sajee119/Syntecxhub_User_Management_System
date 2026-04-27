@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
@@ -248,6 +248,16 @@ const Dashboard = () => {
                       <span className="text-slate-500">Account created:</span>
                       <span className="font-medium">{user?.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A'}</span>
                     </div>
+                    
+                    <div className="border-t border-slate-100 dark:border-slate-700 my-2"></div>
+                    <Link
+                      to="/account"
+                      className="flex items-center gap-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 p-2 rounded-lg transition"
+                      onClick={() => setIsProfileDropdownOpen(false)}
+                    >
+                      <i className="fas fa-user-circle w-5"></i>
+                      <span>My Account</span>
+                    </Link>
                     <div className="border-t border-slate-100 dark:border-slate-700 my-2"></div>
                     <button 
                       onClick={() => setConfirmationConfig({ isOpen: true, title: 'Sign Out', message: 'Are you sure you want to sign out?', onConfirm: logout })}
@@ -260,6 +270,14 @@ const Dashboard = () => {
               )}
             </div>
             
+            <Link
+              to="/account"
+              className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 shadow-sm hover:shadow-md transition flex items-center gap-2 text-sm font-medium"
+            >
+              <i className="fas fa-user-circle"></i>
+              <span className="hidden sm:inline">My Account</span>
+            </Link>
+
             <button 
               onClick={handleAddUser}
               className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-5 py-2.5 rounded-xl shadow-md flex items-center gap-2 transition"
