@@ -73,6 +73,10 @@ const Account = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
+  useEffect(() => {
+    document.title = 'AdminHub | Account';
+  }, []);
+
   const handleProfileUpdate = async (e) => {
     e.preventDefault();
     setLoading(true);

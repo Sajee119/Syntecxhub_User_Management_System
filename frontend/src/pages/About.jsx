@@ -32,6 +32,7 @@ const About = () => {
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     initTheme();
+    document.title = 'AdminHub | About';
   }, []);
 
   return (

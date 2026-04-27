@@ -34,6 +34,10 @@ const Login = () => {
     localStorage.setItem('dashboardTheme', isDark ? 'dark' : 'light');
   }, [isDark]);
 
+  useEffect(() => {
+    document.title = 'AdminHub | Login';
+  }, []);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();

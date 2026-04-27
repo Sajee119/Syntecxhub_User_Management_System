@@ -94,6 +94,10 @@ const Dashboard = () => {
     fetchStats();
   }, [user, navigate, fetchUsers, fetchStats]);
 
+  useEffect(() => {
+    document.title = 'AdminHub | Dashboard';
+  }, []);
+
   const getFilteredUsers = () => {
     const term = searchTerm.trim().toLowerCase();
     return users.filter(u => {
