@@ -1,13 +1,14 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useState, useContext, useEffect } from 'react';
-import { toast } from 'react-toastify';
 import api from '../services/api';
+import { useToast } from './ToastContext';
 
 const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
+  const toast = useToast();
   const initialToken = localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken');
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(Boolean(initialToken));

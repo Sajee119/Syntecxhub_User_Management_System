@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { useAuth } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
 import api from '../services/api';
 import UserTable from '../components/UserTable';
 import UserInputModal from '../components/UserInputModal';
@@ -13,6 +13,7 @@ import adminHubLogo from '../assets/AdminHub-logo.png';
 const Dashboard = () => {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
+  const { success: showSuccess, error: showError, info: showInfo } = useToast();
   const [users, setUsers] = useState([]);
   const [stats, setStats] = useState({ total: 0, active: 0, avgAge: 0, uniqueCities: 0 });
   const [searchTerm, setSearchTerm] = useState('');
@@ -61,11 +62,11 @@ const Dashboard = () => {
       }));
     } catch (error) {
       console.error('Failed to fetch users:', error);
-      toast.error('Failed to load users');
+      showError('Failed to load users');
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [showError]);
 
   const fetchStats = useCallback(async () => {
     try {
@@ -80,9 +81,9 @@ const Dashboard = () => {
       }));
     } catch (error) {
       console.error('Failed to fetch stats:', error);
-      toast.error('Failed to load user stats');
+      showError('Failed to load user stats');
     }
-  }, []);
+  }, [showError]);
 
   useEffect(() => {
     if (!user) {
@@ -125,22 +126,22 @@ const Dashboard = () => {
 
   const handleSendMail = async ({ subject, message }) => {
     if (!mailTargetUser?.id) {
-      toast.error('Invalid user selected for email');
+      showError('Invalid user selected for email');
       return;
     }
 
     setIsSendingMail(true);
     try {
       const response = await api.post(`/users/${mailTargetUser.id}/send-mail`, { subject, message });
-      toast.success(`Email sent to ${mailTargetUser.email}`);
+      showSuccess(`Email sent to ${mailTargetUser.email}`);
       if (response.data?.previewUrl) {
-        toast.info(`Preview URL: ${response.data.previewUrl}`);
+        showInfo(`Preview URL: ${response.data.previewUrl}`);
       }
       setIsSendMailModalOpen(false);
       setMailTargetUser(null);
     } catch (error) {
       const messageText = error.response?.data?.error || error.response?.data?.message || 'Failed to send email';
-      toast.error(messageText);
+      showError(messageText);
     } finally {
       setIsSendingMail(false);
     }
@@ -150,10 +151,10 @@ const Dashboard = () => {
     try {
       if (editingUser) {
         await api.put(`/users/${editingUser.id}`, userData);
-        toast.success('User updated successfully');
+        showSuccess('User updated successfully');
       } else {
         await api.post('/users', { ...userData, password: 'default123' });
-        toast.success('User created successfully');
+        showSuccess('User created successfully');
       }
       await fetchUsers();
       await fetchStats();
@@ -161,7 +162,7 @@ const Dashboard = () => {
       setEditingUser(null);
     } catch (error) {
       console.error('Failed to save user:', error);
-      toast.error(error.response?.data?.message || 'Failed to save user');
+      showError(error.response?.data?.message || 'Failed to save user');
     }
   };
 
@@ -176,11 +177,11 @@ const Dashboard = () => {
           await api.delete(`/users/${userId}`);
           await fetchUsers();
           await fetchStats();
-          toast.success('User deleted successfully');
+          showSuccess('User deleted successfully');
           setConfirmationConfig({ isOpen: false, title: '', message: '', onConfirm: null });
         } catch (error) {
           console.error('Failed to delete user:', error);
-          toast.error(error.response?.data?.message || 'Failed to delete user');
+          showError(error.response?.data?.message || 'Failed to delete user');
         }
       }
     });
