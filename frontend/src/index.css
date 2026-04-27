@@ -1,0 +1,86 @@
+/* index.css */
+* {
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.modal-transition {
+  transition: opacity 0.2s ease, visibility 0.2s;
+}
+
+.modal-card {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.custom-scroll::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: #e2e8f0;
+  border-radius: 10px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 10px;
+}
+
+.dark .custom-scroll::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+.dark .custom-scroll::-webkit-scrollbar-thumb {
+  background: #475569;
+}
+
+.theme-transition {
+  transition: all 0.2s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #3b82f6;
+  border-color: #3b82f6;
+}
+
+.confirm-modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.login-card {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.input-focus-effect:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #6366f1;
+  border-color: #6366f1;
+  transform: scale(1.01);
+}
+
+.error-shake {
+  animation: shake 0.4s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  75% { transform: translateX(8px); }
+}
