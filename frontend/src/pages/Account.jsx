@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
 import ThemeToggle from '../components/ThemeToggle';
@@ -26,27 +26,16 @@ const Account = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
-  const [isDark, setIsDark] = useState(false);
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const [confirmationConfig, setConfirmationConfig] = useState({ isOpen: false, title: '', message: '', onConfirm: null });
-
-  useEffect(() => {
-    initTheme();
-    if (!user) {
-      navigate('/login');
-      return;
-    }
-    fetchProfile();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
 
   const initTheme = () => {
     const savedTheme = localStorage.getItem('dashboardTheme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const dark = savedTheme === 'dark' || (!savedTheme && prefersDark);
-    setIsDark(dark);
     if (dark) {
       document.documentElement.classList.add('dark');
     } else {
@@ -71,6 +60,17 @@ const Account = () => {
       setMessage({ type: 'error', text: 'Failed to load profile data' });
     }
   };
+
+  useEffect(() => {
+    initTheme();
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    fetchProfile();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   const handleProfileUpdate = async (e) => {
     e.preventDefault();
@@ -152,7 +152,7 @@ const Account = () => {
           await api.delete(`/users/${user._id || user.id}`);
           await logout();
           navigate('/login');
-        } catch (error) {
+        } catch {
           setMessage({ type: 'error', text: 'Failed to delete account' });
           setConfirmationConfig({ isOpen: false, title: '', message: '', onConfirm: null });
         }
@@ -168,26 +168,96 @@ const Account = () => {
     });
   };
 
+  const handleAddUser = () => {
+    navigate('/dashboard');
+  };
+
   return (
     <div className="bg-gray-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 theme-transition min-h-screen">
+      
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
           <div>
             <h1 className="text-3xl md:text-4xl font-bold tracking-tight flex items-center gap-3">
-              <i className="fas fa-user-circle text-indigo-500 text-3xl"></i>
-              <span>My Account</span>
+              <i className="fas fa-users-gear text-indigo-500 text-3xl"></i>
+              <span>User Management</span>
             </h1>
-            <p className="text-slate-500 dark:text-slate-400 mt-1 text-sm">Manage your profile and security settings</p>
+            <p className="text-slate-500 dark:text-slate-400 mt-1 text-sm">Manage users, roles, access & advanced analytics</p>
           </div>
           <div className="flex items-center gap-3">
             <ThemeToggle />
+
             <button
-              onClick={() => navigate('/dashboard')}
-              className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2 shadow-sm hover:shadow-md transition flex items-center gap-2 text-sm font-medium"
+              onClick={handleAddUser}
+              className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-5 py-2.5 rounded-xl shadow-md flex items-center gap-2 transition"
             >
-              <i className="fas fa-arrow-left"></i>
-              <span>Back to Dashboard</span>
+              <i className="fas fa-plus-circle"></i> <span className="hidden sm:inline">Add user</span>
             </button>
+
+            <div className="relative">
+              <button
+                onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
+                className="flex items-center gap-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-full pl-2 pr-3 py-1.5 shadow-sm hover:shadow-md transition"
+              >
+                <div className="h-8 w-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm">
+                  {user?.name?.charAt(0) || 'AD'}
+                </div>
+                <div className="text-left hidden sm:block">
+                  <p className="text-xs font-semibold">{user?.name || 'Admin User'}</p>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400">{user?.role || 'Super Admin'}</p>
+                </div>
+                <i className="fas fa-chevron-down text-xs text-slate-400"></i>
+              </button>
+
+              {isProfileDropdownOpen && (
+                <div className="absolute right-0 mt-2 w-72 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 z-20 overflow-hidden">
+                  <div className="p-4 border-b border-slate-100 dark:border-slate-700 flex gap-3">
+                    <div className="h-14 w-14 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-xl font-bold">
+                      {user?.name?.charAt(0) || 'AD'}
+                    </div>
+                    <div>
+                      <h4 className="font-bold">{user?.name || 'Admin User'}</h4>
+                      <p className="text-xs text-slate-500 dark:text-slate-400">{user?.email}</p>
+                      <span className="inline-block mt-1 text-[10px] bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 px-2 py-0.5 rounded-full">
+                        {user?.role || 'Super Admin'}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="p-3 text-sm space-y-2">
+                    <div className="flex justify-between">
+                      <span className="text-slate-500">Account created:</span>
+                      <span className="font-medium">{user?.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A'}</span>
+                    </div>
+
+                    <div className="border-t border-slate-100 dark:border-slate-700 my-2"></div>
+                    <Link
+                      to="/account"
+                      className="flex items-center gap-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 p-2 rounded-lg transition"
+                      onClick={() => setIsProfileDropdownOpen(false)}
+                    >
+                      <i className="fas fa-user-circle w-5"></i>
+                      <span>My Account</span>
+                    </Link>
+                    <div className="border-t border-slate-100 dark:border-slate-700 my-2"></div>
+                    <Link
+                      to="/about"
+                      className="flex items-center gap-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 p-2 rounded-lg transition"
+                      onClick={() => setIsProfileDropdownOpen(false)}
+                    >
+                      <i className="fas fa-info-circle w-5"></i>
+                      <span>About</span>
+                    </Link>
+                    <div className="border-t border-slate-100 dark:border-slate-700 my-2"></div>
+                    <button
+                      onClick={() => setConfirmationConfig({ isOpen: true, title: 'Sign Out', message: 'Are you sure you want to sign out?', onConfirm: logout })}
+                      className="w-full text-left text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 p-2 rounded-lg transition"
+                    >
+                      <i className="fas fa-sign-out-alt mr-2"></i> Sign out
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 

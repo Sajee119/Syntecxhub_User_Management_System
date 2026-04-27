@@ -212,6 +212,15 @@ const Dashboard = () => {
           </div>
           <div className="flex items-center gap-3">
             <ThemeToggle />
+
+            
+
+            <button 
+              onClick={handleAddUser}
+              className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-5 py-2.5 rounded-xl shadow-md flex items-center gap-2 transition"
+            >
+              <i className="fas fa-plus-circle"></i> <span className="hidden sm:inline">Add user</span>
+            </button>
             
             {/* Admin Profile */}
             <div className="relative">
@@ -259,6 +268,15 @@ const Dashboard = () => {
                       <span>My Account</span>
                     </Link>
                     <div className="border-t border-slate-100 dark:border-slate-700 my-2"></div>
+                    <Link
+                      to="/about"
+                      className="flex items-center gap-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 p-2 rounded-lg transition"
+                      onClick={() => setIsProfileDropdownOpen(false)}
+                    >
+                      <i className="fas fa-info-circle w-5"></i>
+                      <span>About</span>
+                    </Link>
+                    <div className="border-t border-slate-100 dark:border-slate-700 my-2"></div>
                     <button 
                       onClick={() => setConfirmationConfig({ isOpen: true, title: 'Sign Out', message: 'Are you sure you want to sign out?', onConfirm: logout })}
                       className="w-full text-left text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 p-2 rounded-lg transition"
@@ -269,21 +287,6 @@ const Dashboard = () => {
                 </div>
               )}
             </div>
-            
-            <Link
-              to="/account"
-              className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 shadow-sm hover:shadow-md transition flex items-center gap-2 text-sm font-medium"
-            >
-              <i className="fas fa-user-circle"></i>
-              <span className="hidden sm:inline">My Account</span>
-            </Link>
-
-            <button 
-              onClick={handleAddUser}
-              className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-5 py-2.5 rounded-xl shadow-md flex items-center gap-2 transition"
-            >
-              <i className="fas fa-plus-circle"></i> <span className="hidden sm:inline">Add user</span>
-            </button>
           </div>
         </div>
 
