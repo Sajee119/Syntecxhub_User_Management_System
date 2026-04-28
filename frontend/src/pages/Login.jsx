@@ -81,7 +81,7 @@ const Login = () => {
                 </label>
                 <input 
                   type="email" 
-                  value={email}
+                  // value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required 
                   placeholder="Enter admin email" 
@@ -97,7 +97,7 @@ const Login = () => {
                 <div className="relative">
                   <input 
                     type={showPassword ? 'text' : 'password'}
-                    value={password}
+                    // value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required 
                     placeholder="Enter admin password" 
